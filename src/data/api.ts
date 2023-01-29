@@ -15,5 +15,6 @@ export const request = async (path: string, options?: RequestInit) => {
 };
 
 export const endpoints = {
-  getCurrentUser: () => request('/auth/me')
+  getCurrentUser: () => request('/auth/me'),
+  getJournies: () => request('/journey')
 };

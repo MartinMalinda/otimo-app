@@ -17,7 +17,7 @@ export interface User {
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    users: {} as Record<string, User>
+    users: {} as Record<string, User>,
   }),
   actions: {
     addUser(userData: UserRaw) {
