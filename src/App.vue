@@ -21,7 +21,7 @@ let riv: rive.Rive;
 
 const googleAuth = async () => {
   const initUrl = new URL('https://x8ki-letl-twmt.n7.xano.io/api:-JtYy9Ru/oauth/google/init');
-  initUrl.searchParams.set('redirect_uri', 'http://localhost:5173');
+  initUrl.searchParams.set('redirect_uri', window.location.origin + '/login.html');
   const response = await fetch(initUrl);
   const json = await response.json();
   const { authUrl } = json;
