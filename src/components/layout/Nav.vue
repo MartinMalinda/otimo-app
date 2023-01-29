@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Container from '/~/components/layout/Container.vue';
 import { useSessionStore } from '/~/data/stores/session';
 
 const sessionStore = useSessionStore();
@@ -10,17 +11,23 @@ const logout = () => {
 </script>
 <template>
   <nav>
-    <p>Hello {{ sessionStore.currentUser?.name }}</p>
-    <button @click="logout">Logout</button>
+    <Container class="inner">
+      <p>Hello {{ sessionStore.currentUser?.name }}</p>
+      <button @click="logout">Logout</button>
+    </Container>
   </nav>
 </template>
 
 <style scoped>
 nav {
+  color: var(--white);
+  background: var(--green);
+}
+
+.inner {
   display: flex;
   justify-content: space-between;
-  background: var(--green);
-  color: var(--white);
+  align-items: center;
 }
 
 h1 {
