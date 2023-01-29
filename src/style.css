@@ -10,7 +10,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --tree-size: 300px;
+  --green: #004e00;
+  --white: #fff;
 }
 
 html, body {
