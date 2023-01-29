@@ -8,7 +8,7 @@ export const request = async (path: string, options?: RequestInit) => {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accepts: 'application/json',
       ...options,
-    }
+    } as any
   });
   const json = await response.json();
   return json;
