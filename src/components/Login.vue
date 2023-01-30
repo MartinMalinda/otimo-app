@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import * as rive from "@rive-app/canvas";
 import Envelope from '../components/Envelope.vue';
 import Google from '../components/Google.vue';
-import { useSessionStore } from '/~/data/stores/session';
+import { supabase } from '/~/data/supabase';
 
 const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -13,12 +13,9 @@ const canvasRef = ref();
 let riv: rive.Rive;
 
 const googleAuth = async () => {
-  const initUrl = new URL('https://x8ki-letl-twmt.n7.xano.io/api:-JtYy9Ru/oauth/google/init');
-  initUrl.searchParams.set('redirect_uri', window.location.origin + '/login.html');
-  const response = await fetch(initUrl);
-  const json = await response.json();
-  const { authUrl } = json;
-  window.location.href = authUrl;
+  await supabase.auth.signInWithOAuth({
+    provider: 'google'
+  });
 };
 
 const grow = () => {

@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Container from '/~/components/layout/Container.vue';
 import { useSessionStore } from '/~/data/stores/session';
+import { supabase } from '/~/data/supabase';
 
-const sessionStore = useSessionStore();
+const user = ref();
+supabase.auth.getUser().then(({ data }) => {
+  user.value = data.user?.user_metadata;
+});
 
 const logout = () => {
   localStorage.removeItem('token');
@@ -12,7 +17,7 @@ const logout = () => {
 <template>
   <nav>
     <Container class="inner">
-      <p>Hello {{ sessionStore.currentUser?.name }}</p>
+      <p><img :src="user?.avatar_url" /> {{ user?.name }}</p>
       <button @click="logout">Logout</button>
     </Container>
   </nav>
@@ -22,6 +27,17 @@ const logout = () => {
 nav {
   color: var(--white);
   background: var(--green);
+}
+
+p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+img {
+  border-radius: 50%;
+  width: 40px;
 }
 
 .inner {

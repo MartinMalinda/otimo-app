@@ -4,22 +4,23 @@ import { useSessionStore } from '/~/data/stores/session';
 import { useJourneyStore } from '/~/data/stores/journey';
 import Login from './components/Login.vue';
 import Nav from '/~/components/layout/Nav.vue';
+import { supabase } from '/~/data/supabase';
 
 const sessionStore = useSessionStore();
 const journeyStore = useJourneyStore();
 const journies = ref([]);
 
-const loggedIn = ref(!!localStorage.getItem('token'));
-if (loggedIn) {
-  sessionStore.fetchCurrentUser();
-  journeyStore.getJournies().then((_journies) => {
-    journies.value = _journies;
-  });
-}
+const loggedIn = ref();
+
+supabase.auth.getSession().then(({ data }) => {
+  loggedIn.value = !!data.session?.user;
+});
+
 </script>
 
 <template>
-  <template v-if="loggedIn">
+  <template v-if="loggedIn === undefined" />
+  <template v-else-if="loggedIn">
     <Nav />
     <div v-for="journey in journies">
       {{ journey }}
