@@ -30,7 +30,11 @@ const email = async () => {
   }
 }
 
-const login = (cb) => {
+const setEmail = (event) => {
+  emailValue.value = event.target?.value;
+};
+
+const login = (cb: () => {}) => {
   riv.play();
   riv.on(rive.EventType.Stop, () => {
     isHidden.value = true;
@@ -56,8 +60,7 @@ onMounted(() => {
     <div class="right">
       <canvas ref="canvasRef" id="canvas" width="300" height="300"></canvas>
       <div v-if="isUsingEmail" class="email-row">
-        <input @input="event => emailValue = event.target.value" autofocus type="email"
-          placeholder="Your email address" />
+        <input @input="setEmail" autofocus type="email" placeholder="Your email address" />
         <button @click="email" class="button-link">Send link</button>
       </div>
       <a v-else @click="() => isUsingEmail = true" class="button-link">
