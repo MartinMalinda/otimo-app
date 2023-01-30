@@ -31,3 +31,8 @@ button {
   font-weight: bold;
 }
 
+input {
+  padding: 16px;
+  border: 1px solid lightgrey;
+  background: rgb(235, 235, 235);
+}

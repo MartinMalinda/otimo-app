@@ -9,8 +9,8 @@ supabase.auth.getUser().then(({ data }) => {
   user.value = data.user?.user_metadata;
 });
 
-const logout = () => {
-  localStorage.removeItem('token');
+const logout = async () => {
+  await supabase.auth.signOut();
   window.location.reload();
 };
 </script>

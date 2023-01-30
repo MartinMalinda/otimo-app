@@ -9,6 +9,9 @@ const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, tim
 
 const isHidden = ref(false);
 const canvasRef = ref();
+const isUsingEmail = ref(false);
+const emailValue = ref<string>();
+const successMessage = ref();
 
 let riv: rive.Rive;
 
@@ -18,14 +21,20 @@ const googleAuth = async () => {
   });
 };
 
-const grow = () => {
+const email = async () => {
+  if (emailValue.value?.length) {
+    await supabase.auth.signInWithOtp({
+      email: emailValue.value
+    });
+    login(() => successMessage.value = `An email has been sent to ${emailValue.value}.`);
+  }
+}
+
+const login = (cb) => {
   riv.play();
   riv.on(rive.EventType.Stop, () => {
-    console.log('stop');
     isHidden.value = true;
-    timeout(300).then(() => {
-      googleAuth();
-    });
+    timeout(300).then(cb);
   });
 };
 
@@ -38,6 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <h1 v-if="successMessage" class="success">{{ successMessage }}</h1>
   <div class="box" :class="{ hide: isHidden }">
     <div class="left">
       <h1>Ótimo</h1>
@@ -45,10 +55,15 @@ onMounted(() => {
     </div>
     <div class="right">
       <canvas ref="canvasRef" id="canvas" width="300" height="300"></canvas>
-      <a @click="grow" class="button-link">
+      <div v-if="isUsingEmail" class="email-row">
+        <input @input="event => emailValue = event.target.value" autofocus type="email"
+          placeholder="Your email address" />
+        <button @click="email" class="button-link">Send link</button>
+      </div>
+      <a v-else @click="() => isUsingEmail = true" class="button-link">
         <Envelope class="icon" /> Continue with Email
       </a>
-      <a @click="grow" class="button-link">
+      <a @click="() => login(googleAuth)" class="button-link">
         <Google class="icon" /> Continue with Google
       </a>
     </div>
@@ -57,6 +72,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+canvas {
+  margin-bottom: -28px;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -65,6 +84,18 @@ nav {
 h1 {
   font-size: 150px;
   margin-bottom: 50px;
+}
+
+h1.success {
+  font-size: 40px;
+  line-height: 120px;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .box {
@@ -111,6 +142,7 @@ h1 {
 .button-link {
   border: 2px solid var(--green);
   color: green;
+  background: white;
   padding: 10px 20px;
   font-weight: bold;
   cursor: pointer;
@@ -121,10 +153,6 @@ h1 {
   align-items: center;
   justify-content: space-between;
   flex-direction: row-reverse;
-}
-
-.button-link:first-of-type {
-  margin-top: -17px;
 }
 
 .button-link:active {
@@ -138,9 +166,20 @@ h1 {
   margin-right: 8px;
 }
 
+input {
+  width: 280px;
+  text-align: center;
+}
 
-h1 {
-  font-size: 150px;
-  margin-bottom: 50px;
+.email-row {
+  display: flex;
+  width: 280px;
+  margin-top: 14px;
+}
+
+.email-row button {
+  /* display: none; */
+  display: inline;
+  margin: 0;
 }
 </style>
