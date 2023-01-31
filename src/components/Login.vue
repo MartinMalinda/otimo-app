@@ -45,6 +45,15 @@ const login = (cb: () => {}) => {
   });
 };
 
+const reset = () => {
+  successMessage.value = null;
+  isHidden.value = false;
+  isUsingEmail.value = false;
+  emailValue.value = undefined;
+  riv.unsubscribeAll();
+  riv.reset();
+};
+
 onMounted(() => {
   riv = new rive.Rive({
     src: "/tree5.riv",
@@ -54,7 +63,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1 v-if="successMessage" class="success">{{ successMessage }}</h1>
+  <div v-if="successMessage" class="success">
+    <h1>
+      {{ successMessage }}
+    </h1>
+    <button @click="reset" class="plain">Back to login screen</button>
+  </div>
   <div class="box" :class="{ hide: isHidden }">
     <div class="left">
       <h1>Ótimo</h1>
@@ -64,7 +78,7 @@ onMounted(() => {
       <canvas ref="canvasRef" id="canvas" width="300" height="300"></canvas>
       <div v-if="isUsingEmail" class="email-row">
         <input @input="setEmail" autofocus type="email" placeholder="Your email address" />
-        <button @click="email" class="button-link">Send link</button>
+        <button @click="email" class="button-link">Send&nbsp;link</button>
       </div>
       <a v-else @click="() => isUsingEmail = true" class="button-link">
         <Envelope class="icon" /> Continue with Email
@@ -77,7 +91,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 canvas {
   margin-bottom: -28px;
 }
@@ -92,16 +106,31 @@ h1 {
   margin-bottom: 50px;
 }
 
-h1.success {
-  font-size: 40px;
+.success {
+
   line-height: 120px;
   text-align: center;
   position: absolute;
   left: 0;
   right: 0;
   margin: auto;
+  display: inline-block;
+  padding: 100px;
   top: 50%;
   transform: translateY(-50%);
+
+  h1 {
+    font-size: 40px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.259);
+  }
+
+  button.plain {
+    border: 0;
+    background: white;
+    color: grey;
+    font-weight: 400;
+  }
 }
 
 .box {
@@ -147,7 +176,7 @@ h1.success {
 
 .button-link {
   border: 2px solid var(--green);
-  color: green;
+  color: var(--green);
   background: white;
   padding: 10px 20px;
   font-weight: bold;
@@ -159,6 +188,7 @@ h1.success {
   align-items: center;
   justify-content: space-between;
   flex-direction: row-reverse;
+  border-radius: 3px;
 }
 
 .button-link:active {
@@ -173,19 +203,27 @@ h1.success {
 }
 
 input {
-  width: 280px;
-  text-align: center;
+  width: 165px;
+  margin-right: -1px;
+  border-radius: 3px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  flex-grow: 0;
+  flex-shrink: 1;
 }
 
 .email-row {
   display: flex;
-  width: 280px;
-  margin-top: 14px;
+  justify-content: center;
+  width: 260px;
+  margin-top: 12px;
 }
 
 .email-row button {
   /* display: none; */
   display: inline;
   margin: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 </style>

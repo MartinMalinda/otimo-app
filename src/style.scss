@@ -10,7 +10,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --green: #004e00;
+  --green: #173217;
   --white: #fff;
 }
 
@@ -29,10 +29,16 @@ button {
   color: white;
   padding: 8px;
   font-weight: bold;
+  border-radius: 3px;
+  font-size: 16px;
 }
 
 input {
   padding: 16px;
-  border: 1px solid lightgrey;
-  background: rgb(235, 235, 235);
+  border: 2px solid var(--green);
+  background: var(--white);
+
+  &:focus {
+    outline: 0;
+  }
 }
