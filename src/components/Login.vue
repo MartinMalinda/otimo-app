@@ -26,10 +26,13 @@ const googleAuth = async () => {
 
 const email = async () => {
   if (emailValue.value?.length) {
-    await supabase.auth.signInWithOtp({
+    const promise = supabase.auth.signInWithOtp({
       email: emailValue.value
     });
-    login(() => successMessage.value = `An email has been sent to ${emailValue.value}.`);
+    login(async () => {
+      await promise;
+      successMessage.value = `An email has been sent to ${emailValue.value}.`;
+    });
   }
 }
 
@@ -37,7 +40,7 @@ const setEmail = (event) => {
   emailValue.value = event.target?.value;
 };
 
-const login = (cb: () => {}) => {
+const login = (cb: () => void) => {
   riv.play();
   riv.on(rive.EventType.Stop, () => {
     isHidden.value = true;
