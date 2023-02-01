@@ -15,13 +15,32 @@ const successMessage = ref();
 
 let riv: rive.Rive;
 
+const prefetch = (url: string) => {
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'prefetch');
+  link.setAttribute('href', url);
+  document.head.append(link);
+};
+
 const googleAuth = async () => {
-  await supabase.auth.signInWithOAuth({
+  const googlePromise = supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
+      skipBrowserRedirect: true,
       redirectTo: window.location.href,
     }
   });
+  googlePromise.then(({ data }) => {
+    if (data.url) {
+      prefetch(data.url);
+    }
+  })
+  animate(async () => {
+    const { data } = await googlePromise;
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  })
 };
 
 const email = async () => {
@@ -29,7 +48,7 @@ const email = async () => {
     const promise = supabase.auth.signInWithOtp({
       email: emailValue.value
     });
-    login(async () => {
+    animate(async () => {
       await promise;
       successMessage.value = `An email has been sent to ${emailValue.value}.`;
     });
@@ -40,7 +59,7 @@ const setEmail = (event) => {
   emailValue.value = event.target?.value;
 };
 
-const login = (cb: () => void) => {
+const animate = (cb: () => void) => {
   riv.play();
   riv.on(rive.EventType.Stop, () => {
     isHidden.value = true;
@@ -86,7 +105,7 @@ onMounted(() => {
       <a v-else @click="() => isUsingEmail = true" class="button-link">
         <Envelope class="icon" /> Continue with Email
       </a>
-      <a @click="() => login(googleAuth)" class="button-link">
+      <a @click="googleAuth" class="button-link">
         <Google class="icon" /> Continue with Google
       </a>
     </div>
@@ -110,7 +129,6 @@ h1 {
 }
 
 .success {
-
   line-height: 120px;
   text-align: center;
   position: absolute;
