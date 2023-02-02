@@ -13,6 +13,11 @@ const isUsingEmail = ref(false);
 const emailValue = ref<string>();
 const successMessage = ref();
 
+const videoRef = ref<HTMLMediaElement>();
+const videoRef2 = ref<HTMLMediaElement>();
+const videoRef3 = ref<HTMLMediaElement>();
+const videoRef4 = ref<HTMLMediaElement>();
+
 let riv: rive.Rive;
 
 const prefetch = (url: string) => {
@@ -81,6 +86,25 @@ onMounted(() => {
     src: "/tree5.riv",
     canvas: canvasRef.value,
   });
+
+  // videoRef.value.play();
+  let canPlayNext = false;
+  videoRef2.value?.addEventListener('canplay', () => {
+    canPlayNext = true;
+    console.log('canplay');
+  });
+
+  videoRef.value!.playbackRate = 2;
+  videoRef.value?.addEventListener('ended', () => {
+    console.log('ended');
+    if (!canPlayNext) {
+      videoRef.value?.play();
+    } else {
+      videoRef.value?.classList.add('hidden');
+      videoRef2.value?.play();
+      videoRef2.value?.classList.remove('hidden');
+    }
+  });
 });
 </script>
 
@@ -93,6 +117,10 @@ onMounted(() => {
   </div>
   <div class="box" :class="{ hide: isHidden }">
     <div class="left">
+      <video ref="videoRef" autoplay="true" muted src="/vid4.mp4" />
+      <video ref="videoRef2" preload="auto" muted src="/vid3.mp4" loop class="hidden" />
+      <video ref="videoRef3" muted src="/vid1.mp4" loop class="hidden" />
+      <video ref="videoRef4" muted src="/vid2.mp4" loop class="hidden" />
       <h1>Ótimo</h1>
       <h2>Your personal guide towards harmony</h2>
     </div>
@@ -126,6 +154,33 @@ nav {
 h1 {
   font-size: 150px;
   margin-bottom: 50px;
+  z-index: 2;
+  position: relative;
+  text-shadow: 1px 1px black;
+}
+
+h2 {
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px black;
+}
+
+.left {
+  position: relative;
+}
+
+video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  z-index: 1;
+  transition: 0.3s opacity;
+
+  &.hidden {
+    opacity: 0;
+  }
 }
 
 .success {
@@ -167,7 +222,7 @@ h1 {
   color: white;
   border-right: 1px solid black;
   height: 100%;
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
