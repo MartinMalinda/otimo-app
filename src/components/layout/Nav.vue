@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Container from '/~/components/layout/Container.vue';
-import { useSessionStore } from '/~/data/stores/session';
 import { supabase } from '/~/data/supabase';
 
 const user = ref();
@@ -17,16 +16,44 @@ const logout = async () => {
 <template>
   <nav>
     <Container class="inner">
-      <p><img :src="user?.avatar_url" /> {{ user?.name }}</p>
-      <button @click="logout">Logout</button>
+      <div class="left">
+        <button @click="logout"><img :src="user?.avatar_url" /> </button>
+        <div class="links">
+          <a>Profile</a>
+          <a>Journey</a>
+          <a>Explore</a>
+        </div>
+      </div>
     </Container>
   </nav>
 </template>
 
-<style scoped>
-nav {
-  color: var(--white);
-  background: var(--green);
+<style lang="scss" scoped>
+.links {
+  a {
+    padding: 8px;
+
+    &:not(:last-child) {
+      border-right: 1px solid black;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.left {
+  border: 1px solid black;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 50px;
+}
+
+button {
+  background: none;
+  border: none;
 }
 
 p {
@@ -42,7 +69,7 @@ img {
 
 .inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 

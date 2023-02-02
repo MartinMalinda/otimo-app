@@ -4,6 +4,7 @@ import * as rive from "@rive-app/canvas";
 import Envelope from '../components/Envelope.vue';
 import Google from '../components/Google.vue';
 import { supabase } from '/~/data/supabase';
+import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 
 const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -12,11 +13,6 @@ const canvasRef = ref();
 const isUsingEmail = ref(false);
 const emailValue = ref<string>();
 const successMessage = ref();
-
-const videoRef = ref<HTMLMediaElement>();
-const videoRef2 = ref<HTMLMediaElement>();
-const videoRef3 = ref<HTMLMediaElement>();
-const videoRef4 = ref<HTMLMediaElement>();
 
 let riv: rive.Rive;
 
@@ -86,25 +82,6 @@ onMounted(() => {
     src: "/tree5.riv",
     canvas: canvasRef.value,
   });
-
-  // videoRef.value.play();
-  let canPlayNext = false;
-  videoRef2.value?.addEventListener('canplay', () => {
-    canPlayNext = true;
-    console.log('canplay');
-  });
-
-  videoRef.value!.playbackRate = 2;
-  videoRef.value?.addEventListener('ended', () => {
-    console.log('ended');
-    if (!canPlayNext) {
-      videoRef.value?.play();
-    } else {
-      videoRef.value?.classList.add('hidden');
-      videoRef2.value?.play();
-      videoRef2.value?.classList.remove('hidden');
-    }
-  });
 });
 </script>
 
@@ -117,10 +94,7 @@ onMounted(() => {
   </div>
   <div class="box" :class="{ hide: isHidden }">
     <div class="left">
-      <video ref="videoRef" autoplay="true" muted src="/vid4.mp4" />
-      <video ref="videoRef2" preload="auto" muted src="/vid3.mp4" loop class="hidden" />
-      <video ref="videoRef3" muted src="/vid1.mp4" loop class="hidden" />
-      <video ref="videoRef4" muted src="/vid2.mp4" loop class="hidden" />
+      <VideoSlideShow :video-sources="['/vid4.mp4', '/vid2.mp4', '/vid3.mp4', '/vid1.mp4']" />
       <h1>Ótimo</h1>
       <h2>Your personal guide towards harmony</h2>
     </div>
@@ -136,6 +110,7 @@ onMounted(() => {
       <a @click="googleAuth" class="button-link">
         <Google class="icon" /> Continue with Google
       </a>
+      <a class="terms-link">Terms and conditions</a>
     </div>
     <!-- <Tree ref="treeRef" class="tree" /> -->
   </div>
@@ -143,7 +118,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 canvas {
-  margin-bottom: -28px;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  border: 6px solid var(--green);
 }
 
 nav {
@@ -199,6 +176,7 @@ video {
     font-size: 40px;
     margin-bottom: 0;
     border-bottom: 1px solid rgba(128, 128, 128, 0.259);
+    text-shadow: none;
   }
 
   button.plain {
@@ -265,6 +243,12 @@ video {
   justify-content: space-between;
   flex-direction: row-reverse;
   border-radius: 3px;
+}
+
+.terms-link {
+  margin-top: 24px;
+  font-size: 14px;
+  color: grey;
 }
 
 .button-link:active {
