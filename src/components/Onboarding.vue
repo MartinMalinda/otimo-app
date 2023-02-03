@@ -1,39 +1,77 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue';
+import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 
+onMounted(() => {
+  document.querySelector('html')?.setAttribute('style', 'scroll-snap-type: y mandatory; scroll-snap-stop: always');
+});
+
+onUnmounted(() => {
+  document.querySelector('html')?.setAttribute('style', '');
+});
 </script>
 <template>
   <div class="onboarding">
     <section>
-      <h1>Welcome, traveller</h1>
+      <VideoSlideShow :video-sources="['/wide5.mp4', '/wide5.mp4']" />
+      <h1>Welcome, traveller</h1><br />
       <h2>Otimo is designed to help you seek new perspectives.</h2>
     </section>
     <section>
-      <h2>It helps you take harmonious action...</h2>
+      <VideoSlideShow :video-sources="['/wide4.mp4', '/wide4.mp4']" />
+      <h2>To take harmonious action in your day to day life</h2>
     </section>
     <section>
-      <h3>To save money</h3>
-      <h3>to boost your health</h3>
-      <h3>to find inner peace...</h3>
+      <VideoSlideShow :video-sources="['/wide2.mp4', '/wide2.mp4']" />
+      <h3>To save money</h3><br />
+      <h3>to boost your health</h3><br />
+      <h3>to find inner peace...</h3><br />
     </section>
     <section>
-      <h3>and to be in symbiosis with others and the planet.</h3>
+      <VideoSlideShow :video-sources="['/wide3.mp4', '/wide3.mp4']" />
+      <h3>And to be in symbiosis with others and the planet.</h3>
     </section>
-    <h2>Let us know more about you</h2>
-    <p>First, let as usk a few questions so that we can help you better. Share only as much you'd like.</p>
-    <div class="buttons">
-      <button>Fill the survey</button>
-      <button class="secondary">Skip this step</button>
-    </div>
+    <section>
+      <h2>Let us know more about you</h2>
+      <p>First, let as usk a few questions so that we can help you better. Share only as much you'd like.</p>
+      <div class="buttons">
+        <button>Fill the survey</button>
+        <button class="secondary">Skip this step</button>
+      </div>
+    </section>
   </div>
 </template>
 <style lang="scss" scoped>
 h1 {
   font-size: 80px;
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.284);
+  line-height: 100px;
+  display: inline-block;
+  padding: 10px;
+  width: auto;
+}
+
+h2 {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.322);
+  padding: 10px;
+  display: inline-block;
+}
+
+h3 {
+  position: relative;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.322);
+  display: inline-block;
+  padding: 10px;
 }
 
 .onboarding {
   border-radius: 0px;
-  padding: 16px;
+  scroll-snap-type: y mandatory;
 }
 
 .buttons {
@@ -42,14 +80,50 @@ h1 {
 }
 
 section {
-  height: 60vh;
+  height: 100vh;
   border: 1px solid black;
   padding: 36px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  // align-items: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: black;
+  color: lightgrey;
+  text-shadow: 1px 1px black;
+
+  &:nth-child(2) {
+    h2 {
+      position: absolute;
+      right: 20%;
+      top: 50%;
+
+    }
+  }
+
+  &:nth-child(3) {
+    h3:nth-of-type(1) {
+      position: relative;
+      left: 20px;
+    }
+
+    h3:nth-of-type(2) {
+      position: relative;
+      left: 100px;
+    }
+
+    h3:nth-of-type(3) {
+      position: relative;
+      left: 200px;
+    }
+  }
+
+  &:nth-child(4) {
+    h3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 
