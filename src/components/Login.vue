@@ -47,7 +47,10 @@ const googleAuth = async () => {
 const email = async () => {
   if (emailValue.value?.length) {
     const promise = supabase.auth.signInWithOtp({
-      email: emailValue.value
+      email: emailValue.value,
+      options: {
+        emailRedirectTo: window.location.href
+      }
     });
     animate(async () => {
       await promise;

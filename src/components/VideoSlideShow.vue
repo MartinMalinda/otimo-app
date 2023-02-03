@@ -24,7 +24,9 @@ onMounted(() => {
     video.el?.addEventListener('ended', () => {
       const nextVideo = getNextVideo(video)
       if (nextVideo.canPlay) {
-        video.isPlaying = false;
+        setTimeout(() => {
+          video.isPlaying = false;
+        }, 200)
         nextVideo.el?.play();
       } else {
         video.el?.play();

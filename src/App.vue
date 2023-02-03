@@ -22,7 +22,7 @@ supabase.auth.getSession().then(({ data }) => {
 <template>
   <template v-if="loggedIn === undefined" />
   <template v-else-if="loggedIn">
-    <Nav class="nav" />
+    <!-- <Nav class="nav" /> -->
     <Container>
       <div class="onboarding">
         <h1>Welcome, traveller</h1>
