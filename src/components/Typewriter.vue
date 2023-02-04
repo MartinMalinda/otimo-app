@@ -16,7 +16,7 @@ onMounted(() => {
     if (isIntersecting) {
       setTimeout(() => {
         letters.value.forEach((letter, index) => {
-          setTimeout(() => requestAnimationFrame(() => letter.animate = true), index * (props.interval || 50));
+          setTimeout(() => requestAnimationFrame(() => letter.animate = true), index * (props.interval ? props.interval : 16));
         });
       }, props.delay || 0);
       observer.disconnect();
