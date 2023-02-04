@@ -46,12 +46,13 @@ onMounted(() => {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translate(-2px, -10px) rotate(-1deg);
+    transform: translate(0, -20%);
+    transform-origin: 50% 50%;
   }
 
   100% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0);
+    transform: translate(0, 0);
   }
 }
 
