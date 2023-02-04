@@ -69,7 +69,7 @@ h1 {
   width: auto;
 
   @media (max-width: 700px) {
-    font-size: 32px;
+    font-size: 30px;
   }
 }
 
