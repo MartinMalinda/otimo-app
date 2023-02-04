@@ -31,24 +31,41 @@ onMounted(() => {
 
 <template>
   <div ref="elementRef" class="typewriter">
-    <span v-for="letter in letters" class="letter" :class="{ animate: letter.animate }">{{ letter.letter }}</span>
+    <span v-for="letter in letters" class="letter" :class="{ animate: letter.animate, empty: letter.letter === ' ' }">{{
+      letter.letter
+    }}</span>
   </div>
 </template>
 
 <style scoped lang="scss">
+.typewriter {
+  vertical-align: middle;
+  display: flex;
+}
+
 @keyframes fadeIn {
   0% {
-    opacity: 0
+    opacity: 0;
+    transform: translate(-2px, -10px) rotate(-1deg);
   }
 
   100% {
-    opacity: 1
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
   }
 }
 
 .letter {
   opacity: 0;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0px;
   background: rgba(0, 0, 0, 0.284);
+
+  &.empty {
+    width: 5px;
+    line-height: 1em;
+  }
 
   &.animate {
     animation: 1s fadeIn forwards;
