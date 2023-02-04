@@ -4,9 +4,9 @@ import { onMounted, ref } from 'vue';
 const props = defineProps<{ text: string, interval?: number, delay?: number }>();
 
 const elementRef = ref<HTMLElement>();
-const letters = ref([...props.text].map((letter) => {
+const words = ref(props.text.split(' ').map((word) => {
   return {
-    letter,
+    word,
     animate: false
   }
 }));
@@ -15,7 +15,7 @@ onMounted(() => {
   const observer = new IntersectionObserver(([{ isIntersecting }]) => {
     if (isIntersecting) {
       setTimeout(() => {
-        letters.value.forEach((letter, index) => {
+        words.value.forEach((letter, index) => {
           setTimeout(() => requestAnimationFrame(() => letter.animate = true), index * (props.interval ? props.interval : 16));
         });
       }, props.delay || 0);
@@ -31,9 +31,12 @@ onMounted(() => {
 
 <template>
   <div ref="elementRef" class="typewriter">
-    <span v-for="letter in letters" class="letter" :class="{ animate: letter.animate, empty: letter.letter === ' ' }">{{
-      letter.letter
-    }}</span>
+    <template v-for="word in words">
+      <span class="word" :class="{ animate: word.animate }">{{
+        word.word
+      }}</span>
+      <span class="word" :class="{ animate: word.animate }">&nbsp;</span>
+    </template>
   </div>
 </template>
 
@@ -42,6 +45,7 @@ onMounted(() => {
   vertical-align: middle;
   display: flex;
   flex-wrap: wrap;
+  // gap: 0.1em;
 }
 
 @keyframes fadeIn {
@@ -57,7 +61,7 @@ onMounted(() => {
   }
 }
 
-.letter {
+.word {
   opacity: 0;
   vertical-align: middle;
   display: inline-block;
@@ -66,6 +70,7 @@ onMounted(() => {
 
   &.empty {
     width: 5px;
+    border: 1px solid black;
     line-height: 1em;
   }
 
@@ -74,11 +79,11 @@ onMounted(() => {
   }
 
   &:first-child {
-    padding-left: 16px;
+    // padding-left: 16px;
   }
 
   &:last-child {
-    padding-right: 16px;
+    // padding-right: 16px;
   }
 }
 </style>

@@ -69,7 +69,7 @@ h1 {
   width: auto;
 
   @media (max-width: 700px) {
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 
@@ -77,8 +77,11 @@ h2 {
   position: relative;
   z-index: 2;
   // background: rgba(0, 0, 0, 0.322);
-  padding: 10px;
   display: inline-block;
+
+  @media (max-width: 700px) {
+    font-size: 20px;
+  }
 }
 
 h3 {
@@ -101,7 +104,6 @@ h3 {
 
 section {
   height: 100vh;
-  border: 1px solid black;
   padding: 36px;
   position: relative;
   scroll-snap-align: start;
@@ -127,12 +129,12 @@ section {
 
     h3:nth-of-type(2) {
       position: relative;
-      left: 100px;
+      left: 10%;
     }
 
     h3:nth-of-type(3) {
       position: relative;
-      left: 200px;
+      left: 20%;
     }
   }
 
