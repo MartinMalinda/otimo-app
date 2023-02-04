@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
+import Typewriter from '/~/components/Typewriter.vue';
 import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 
 onMounted(() => {
@@ -14,22 +15,36 @@ onUnmounted(() => {
   <div class="onboarding">
     <section>
       <VideoSlideShow :video-sources="['/wide5.mp4', '/wide5.mp4']" />
-      <h1>Welcome, traveller</h1><br />
-      <h2>Otimo is designed to help you seek new perspectives.</h2>
+      <h1>
+        <Typewriter text="Welcome, traveller" :delay="500" />
+      </h1><br />
+      <h2>
+        <Typewriter text="Otimo is designed to help you seek new perspectives." :interval="20" :delay="2000" />
+      </h2>
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide4.mp4', '/wide4.mp4']" />
-      <h2>To take harmonious action in your day to day life</h2>
+      <h2>
+        <Typewriter text="To take harmonious action in your day to day life" :delay="500" :interval="20" />
+      </h2>
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide2.mp4', '/wide2.mp4']" />
-      <h3>To save money</h3><br />
-      <h3>to boost your health</h3><br />
-      <h3>to find inner peace...</h3><br />
+      <h3>
+        <Typewriter text="To save money" :delay="500" />
+      </h3><br />
+      <h3>
+        <Typewriter text="to boost your health" :delay="1500" />
+      </h3><br />
+      <h3>
+        <Typewriter text="to find inner peace..." :delay="2500" />
+      </h3><br />
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide3.mp4', '/wide3.mp4']" />
-      <h3>And to be in symbiosis with others and the planet.</h3>
+      <h3>
+        <Typewriter text="And to be in symbiosis with others and the planet." :delay="500" />
+      </h3>
     </section>
     <section>
       <h2>Let us know more about you</h2>
@@ -46,7 +61,7 @@ h1 {
   font-size: 80px;
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.284);
+  // background: rgba(0, 0, 0, 0.284);
   line-height: 100px;
   display: inline-block;
   padding: 10px;
@@ -56,7 +71,7 @@ h1 {
 h2 {
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.322);
+  // background: rgba(0, 0, 0, 0.322);
   padding: 10px;
   display: inline-block;
 }
@@ -64,7 +79,7 @@ h2 {
 h3 {
   position: relative;
   z-index: 3;
-  background: rgba(0, 0, 0, 0.322);
+  // background: rgba(0, 0, 0, 0.322);
   display: inline-block;
   padding: 10px;
 }
