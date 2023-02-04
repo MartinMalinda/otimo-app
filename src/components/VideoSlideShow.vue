@@ -78,7 +78,7 @@ const getVideoPath = (path: string) => {
 <template>
   <div class="videos">
     <video v-for="video in videos" :class="{ hidden: !video.isPlaying }" :key="video.src" :src="getVideoPath(video.src)"
-      muted :ref="(el: any) => video.el = el" />
+      muted playsinline :ref="(el: any) => video.el = el" />
   </div>
 </template>
 
