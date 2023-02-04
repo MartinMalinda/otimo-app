@@ -64,10 +64,13 @@ h1 {
   position: relative;
   z-index: 2;
   // background: rgba(0, 0, 0, 0.284);
-  line-height: 100px;
+  line-height: 1.2em;
   display: inline-block;
-  padding: 10px;
   width: auto;
+
+  @media (max-width: 700px) {
+    font-size: 32px;
+  }
 }
 
 h2 {

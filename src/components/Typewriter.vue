@@ -41,6 +41,7 @@ onMounted(() => {
 .typewriter {
   vertical-align: middle;
   display: flex;
+  flex-wrap: wrap;
 }
 
 @keyframes fadeIn {
