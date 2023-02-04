@@ -31,11 +31,9 @@ onMounted(() => {
       video.el?.addEventListener('ended', () => {
         const nextVideo = getNextVideo(video);
         if (nextVideo.canPlay) {
-          if (nextVideo !== video) {
-            setTimeout(() => {
-              video.isPlaying = false;
-            }, 200)
-          }
+          setTimeout(() => {
+            video.isPlaying = false;
+          }, 200)
           nextVideo.el?.play();
         } else {
           video.el?.play();
@@ -49,15 +47,17 @@ onMounted(() => {
       video.isPlaying = true;
       const nextVideo = getNextVideo(video);
       nextVideo.el!.preload = 'auto';
+      videos.value.filter(_video => _video !== video).forEach(video => {
+        video.el?.pause();
+        video.isPlaying = false;
+      });
     });
   });
 
   const observer = new IntersectionObserver(([{ isIntersecting }]) => {
     if (isIntersecting) {
-      console.log('playing', videos.value[0]?.src);
       videos.value[0].el?.play();
     } else {
-      console.log('pausing', videos.value[0]?.src);
       videos.value.forEach((video) => video.el?.pause());
     }
   }, { rootMargin: '200px', threshold: 0.2 });
