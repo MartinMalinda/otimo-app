@@ -49,19 +49,6 @@ onMounted(() => {
   // gap: 0.1em;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(0, -20%);
-    transform-origin: 50% 50%;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
 .word {
   opacity: 0;
   vertical-align: middle;

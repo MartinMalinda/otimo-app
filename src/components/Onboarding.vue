@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import Typewriter from '/~/components/Typewriter.vue';
 import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 import { supabase } from '/~/data/supabase';
+import ScrollPrompt from '/~/components/ScrollPrompt.vue';
 
 const user = ref();
 supabase.auth.getUser().then(({ data }) => {
@@ -28,6 +29,7 @@ onUnmounted(() => {
       <h2>
         <Typewriter text="Otimo is designed to help you seek new perspectives." :interval="50" :delay="2000" />
       </h2>
+      <ScrollPrompt class="onboarding-scroll-prompt" />
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide4.mp4', '/wide4.mp4']" />
@@ -78,6 +80,18 @@ h1 {
   @media (max-width: 700px) {
     font-size: 25px;
   }
+}
+
+.onboarding-scroll-prompt {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% + 10px);
+  transform: translateX(-50%);
+  height: 100px;
+  width: 32px;
+  opacity: 0;
+  animation: 0.3s fadeIn forwards;
+  animation-delay: 3.5s;
 }
 
 h2 {
