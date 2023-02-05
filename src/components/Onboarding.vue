@@ -143,6 +143,11 @@ section {
       }
     }
 
+    @media (max-width: 800px) {
+      :deep(video) {
+        object-position: left;
+      }
+    }
   }
 
   &:nth-child(3) {
