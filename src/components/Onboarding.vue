@@ -126,7 +126,7 @@ h3 {
 section {
   content-visibility: auto;
 
-  height: calc(var(--vh) * 100);
+  height: 100vh;
   padding: 36px;
   position: relative;
   scroll-snap-align: start;
