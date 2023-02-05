@@ -6,6 +6,7 @@ import { supabase } from '/~/data/supabase';
 import ScrollPrompt from '/~/components/ScrollPrompt.vue';
 import Form from '/~/components/icons/Form.vue';
 import Square from '/~/components/icons/Square.vue';
+import Responsive from '/~/components/Responsive.vue';
 
 const user = ref();
 supabase.auth.getUser().then(({ data }) => {
@@ -63,14 +64,20 @@ onUnmounted(() => {
       </h3>
       <Square :animate="true" />
     </section>
-    <section class="cta">
+    <Responsive tagName="section" class="cta">
       <div class="form-icon">
         <Form />
       </div>
-      <h2>Ready to get started?</h2>
-      <p>Let us know more about you. Share only as much you'd like.</p>
+      <h2>
+        <Typewriter text="Ready to get started?" :delay="300" />
+      </h2>
+      <p>
+        <Typewriter text="Let us know more about you. Share only as much you'd like." :delay="1300" />
+      </p>
       <div class="buttons">
-        <button>Fill the survey</button>
+        <button>
+          <Typewriter text="Fill the survey" :delay="2000" />
+        </button>
       </div>
       <footer>
         <div class="left">
@@ -81,7 +88,7 @@ onUnmounted(() => {
           <a>Instagram</a>
         </div>
       </footer>
-    </section>
+    </Responsive>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -140,10 +147,14 @@ h3 {
 
 .buttons {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  opacity: 0;
+  animation: 0.5s fadeIn forwards;
+  animation-delay: 2s;
 }
 
-section {
+section,
+.cta {
   height: calc(100vh - env(safe-area-inset-bottom));
   padding: 36px;
   position: relative;
@@ -224,6 +235,10 @@ section.cta {
     margin-bottom: 36px;
   }
 
+  :deep(.word) {
+    background: none;
+  }
+
   .form-icon {
     transform: translateX(16px);
     width: 100px;
@@ -233,6 +248,7 @@ section.cta {
   button {
     background: var(--green);
     color: white;
+    padding: 16px 20px;
     border: 0;
   }
 
@@ -252,13 +268,5 @@ section.cta {
       flex-direction: column;
     }
   }
-}
-
-
-button.secondary {
-  background: white;
-  color: darkgray;
-  border: 0;
-  font-weight: 400;
 }
 </style>
