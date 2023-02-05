@@ -54,7 +54,7 @@ rect {
 
 .shape {
   stroke-dasharray: 400%;
-  stroke-dashoffset: -400%;
+  stroke-dashoffset: 400%;
   stroke-width: 8px;
   fill: transparent;
   stroke: white;
