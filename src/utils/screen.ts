@@ -21,6 +21,7 @@ export function useViewportHeight() {
   };
 
   setCssVariable();
+  setTimeout(setCssVariable, 0);
   const onHeightChange = () => {
     // Only set new windowHeight if also width changes (whole window resize, orientation change)
     // not when only height is reduced = android topbar disappearing, mobile keyboard appearing
