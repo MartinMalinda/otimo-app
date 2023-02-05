@@ -77,12 +77,23 @@ const getVideoPath = (path: string) => {
 </script>
 <template>
   <div class="videos">
+    <div class="loader"></div>
     <video v-for="video in videos" :class="{ hidden: !video.isPlaying }" :key="video.src" :src="getVideoPath(video.src)"
       muted playsinline :ref="(el: any) => video.el = el" />
   </div>
 </template>
 
 <style lang="scss" scoped>
+.loader {
+  background: black;
+  opacity: 0.2;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 video {
   position: absolute;
   height: 100%;

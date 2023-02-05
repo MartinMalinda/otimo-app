@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import Typewriter from '/~/components/Typewriter.vue';
 import VideoSlideShow from '/~/components/VideoSlideShow.vue';
+import { supabase } from '/~/data/supabase';
+
+const user = ref();
+supabase.auth.getUser().then(({ data }) => {
+  user.value = data.user?.user_metadata;
+});
 
 onMounted(() => {
   document.querySelector('html')?.setAttribute('style', 'scroll-snap-type: y mandatory; scroll-snap-stop: always');
@@ -12,11 +18,12 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div class="onboarding">
+  <div v-if="user" class="onboarding">
     <section>
       <VideoSlideShow :video-sources="['/wide5.mp4', '/wide5.mp4']" />
       <h1>
-        <Typewriter text="Welcome, traveller" :interval="100" :delay="500" />
+        <Typewriter :text="`Welcome, ${user?.name ? user.name.split(' ')[0] : 'traveller'}`" :interval="100"
+          :delay="500" />
       </h1><br />
       <h2>
         <Typewriter text="Otimo is designed to help you seek new perspectives." :interval="50" :delay="2000" />
@@ -31,14 +38,14 @@ onUnmounted(() => {
     <section>
       <VideoSlideShow :video-sources="['/wide2.mp4']" />
       <h3>
-        <Typewriter text="To save money" :interval="100" :delay="500" />
-      </h3><br />
+        <Typewriter text="To save money, " :interval="100" :delay="500" />
+      </h3>
       <h3>
-        <Typewriter text="to boost your health" :interval="100" :delay="1500" />
-      </h3><br />
+        <Typewriter text="to boost your health, " :interval="100" :delay="1500" />
+      </h3>
       <h3>
         <Typewriter text="to find inner peace..." :interval="100" :delay="2500" />
-      </h3><br />
+      </h3>
     </section>
     <section>
       <VideoSlideShow :video-sources="[
@@ -112,6 +119,17 @@ section {
   color: lightgrey;
   text-shadow: 1px 1px black;
 
+  &:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+
   &:nth-child(2) {
     h2 {
       position: absolute;
@@ -122,19 +140,13 @@ section {
   }
 
   &:nth-child(3) {
-    h3:nth-of-type(1) {
-      position: relative;
-      left: 20px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    h3:nth-of-type(2) {
-      position: relative;
-      left: 10%;
-    }
-
-    h3:nth-of-type(3) {
-      position: relative;
-      left: 20%;
+    h3 {
+      margin: 0;
+      padding: 0;
     }
   }
 

@@ -31,11 +31,11 @@ onMounted(() => {
 
 <template>
   <div ref="elementRef" class="typewriter">
-    <template v-for="word in words">
+    <template v-for="word, index in words">
       <span class="word" :class="{ animate: word.animate }">{{
         word.word
       }}</span>
-      <span class="word" :class="{ animate: word.animate }">&nbsp;</span>
+      <span v-if="index !== words.length - 1" class="word" :class="{ animate: word.animate }">&nbsp;</span>
     </template>
   </div>
 </template>
