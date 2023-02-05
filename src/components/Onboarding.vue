@@ -67,6 +67,15 @@ onUnmounted(() => {
       <div class="buttons">
         <button>Fill the survey</button>
       </div>
+      <footer>
+        <div class="left">
+          Otimo s.r.o. is a registered company in Czech Republic.
+        </div>
+        <div class="right">
+          <a>About us</a>&nbsp;
+          <a>Instagram</a>
+        </div>
+      </footer>
     </section>
   </div>
 </template>
@@ -220,6 +229,19 @@ section.cta {
     background: var(--green);
     color: white;
     border: 0;
+  }
+
+  footer {
+    // border-top: 1px solid lightgrey;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    padding: 16px;
+    color: rgb(74, 71, 71);
+    font-size: 13px;
   }
 }
 
