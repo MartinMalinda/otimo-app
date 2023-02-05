@@ -242,6 +242,10 @@ section.cta {
     padding: 16px;
     color: rgb(74, 71, 71);
     font-size: 13px;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
   }
 }
 
