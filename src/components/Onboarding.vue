@@ -5,6 +5,7 @@ import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 import { supabase } from '/~/data/supabase';
 import ScrollPrompt from '/~/components/ScrollPrompt.vue';
 import Form from '/~/components/icons/Form.vue';
+import Square from '/~/components/icons/Square.vue';
 
 const user = ref();
 supabase.auth.getUser().then(({ data }) => {
@@ -31,12 +32,14 @@ onUnmounted(() => {
         <Typewriter text="Otimo is designed to help you seek new perspectives." :interval="50" :delay="2000" />
       </h2>
       <ScrollPrompt class="onboarding-scroll-prompt" />
+      <Square :animate="true" />
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide4.mp4', '/wide4.mp4']" />
       <h2>
         <Typewriter text="To take harmonious action in your day to day life" :delay="500" :interval="100" />
       </h2>
+      <Square :animate="true" />
     </section>
     <section>
       <VideoSlideShow :video-sources="['/wide2.mp4']" />
@@ -49,6 +52,7 @@ onUnmounted(() => {
       <h3>
         <Typewriter text="to find inner peace..." :interval="100" :delay="2500" />
       </h3>
+      <Square :animate="true" />
     </section>
     <section>
       <VideoSlideShow :video-sources="[
@@ -57,6 +61,7 @@ onUnmounted(() => {
       <h3>
         <Typewriter text="And to be in symbiosis with others and the planet." :interval="100" :delay="500" />
       </h3>
+      <Square :animate="true" />
     </section>
     <section class="cta">
       <div class="form-icon">
