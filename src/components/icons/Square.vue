@@ -29,6 +29,10 @@ onMounted(() => {
 svg {
   width: 100%;
   height: 100%;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 }
 
 rect {
@@ -57,7 +61,7 @@ rect {
   stroke-dashoffset: 400%;
   stroke-width: 8px;
   fill: transparent;
-  stroke: white;
+  stroke: rgba(255, 255, 255, 0.5);
   border-bottom: 5px solid black;
   transition: stroke-width 2s, stroke-dashoffset 2s;
   transition-delay: 1s;
