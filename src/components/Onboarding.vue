@@ -110,6 +110,8 @@ h3 {
 }
 
 section {
+  content-visibility: auto;
+
   height: 100vh;
   padding: 36px;
   position: relative;
