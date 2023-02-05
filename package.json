@@ -12,7 +12,8 @@
     "@rive-app/canvas": "^1.0.98",
     "@supabase/supabase-js": "^2.5.0",
     "pinia": "^2.0.29",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-concurrency": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

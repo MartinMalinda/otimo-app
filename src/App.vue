@@ -5,7 +5,9 @@ import { useJourneyStore } from '/~/data/stores/journey';
 import Login from './components/Login.vue';
 import { supabase } from '/~/data/supabase';
 import Onboarding from '/~/components/Onboarding.vue';
+import { useViewportHeight } from '/~/utils/screen';
 
+useViewportHeight();
 const sessionStore = useSessionStore();
 const journeyStore = useJourneyStore();
 const journies = ref([]);
