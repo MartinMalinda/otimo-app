@@ -147,10 +147,6 @@ section {
     }
   }
 
-  &:not(:first-child) {
-    content-visibility: auto;
-  }
-
   &:nth-child(2) {
     h2 {
       position: absolute;
