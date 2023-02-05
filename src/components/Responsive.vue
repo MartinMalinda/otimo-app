@@ -89,7 +89,7 @@ export default defineComponent({
           );
         } else {
           await timeout(400);
-          window.requestAnimationFrame(() => {
+          (window as any).requestAnimationFrame(() => {
             shouldRender.value = true;
           });
         }
