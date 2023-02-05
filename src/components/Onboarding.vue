@@ -4,6 +4,7 @@ import Typewriter from '/~/components/Typewriter.vue';
 import VideoSlideShow from '/~/components/VideoSlideShow.vue';
 import { supabase } from '/~/data/supabase';
 import ScrollPrompt from '/~/components/ScrollPrompt.vue';
+import Form from '/~/components/icons/Form.vue';
 
 const user = ref();
 supabase.auth.getUser().then(({ data }) => {
@@ -57,12 +58,14 @@ onUnmounted(() => {
         <Typewriter text="And to be in symbiosis with others and the planet." :interval="100" :delay="500" />
       </h3>
     </section>
-    <section>
-      <h2>Let us know more about you</h2>
-      <p>First, let as usk a few questions so that we can help you better. Share only as much you'd like.</p>
+    <section class="cta">
+      <div class="form-icon">
+        <Form />
+      </div>
+      <h2>Ready to get started?</h2>
+      <p>Let us know more about you. Share only as much you'd like.</p>
       <div class="buttons">
         <button>Fill the survey</button>
-        <button class="secondary">Skip this step</button>
       </div>
     </section>
   </div>
@@ -190,6 +193,33 @@ section {
       left: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+}
+
+section.cta {
+  background: white;
+  text-shadow: none;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  p {
+    margin-bottom: 36px;
+  }
+
+  .form-icon {
+    transform: translateX(16px);
+    width: 100px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    background: var(--green);
+    color: white;
+    border: 0;
   }
 }
 
