@@ -84,13 +84,12 @@ h1 {
 
 .onboarding-scroll-prompt {
   position: absolute;
-  // bottom: calc(env(safe-area-inset-bottom) * 2);
-  left: calc(50% + 10px);
+  bottom: 0;
+  left: calc(50%);
   transform: translateX(-50%);
   height: 100px;
-  width: 32px;
   opacity: 0;
-  animation: 0.3s fadeIn forwards;
+  animation: 1s fadeIn forwards;
   animation-delay: 3.5s;
 
   @media (max-width: 600px) {

@@ -21,7 +21,7 @@ $color: white;
     position: absolute;
     top: 0;
     left: 50%;
-    margin-left: -18px;
+    transform: translateX(-8px);
     animation-name: bounce;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
@@ -59,11 +59,11 @@ $color: white;
 
 @keyframes bounce {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) translateX(-50%);
   }
 
   100% {
-    transform: translateY(10px);
+    transform: translateY(10px) translateX(-50%);
   }
 }
 </style>
