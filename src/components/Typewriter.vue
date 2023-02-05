@@ -44,6 +44,7 @@ onMounted(() => {
 .typewriter {
   vertical-align: middle;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   // gap: 0.1em;
 }

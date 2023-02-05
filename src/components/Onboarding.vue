@@ -136,7 +136,13 @@ section {
       right: 20%;
       top: 50%;
 
+      @media (max-width: 800px) {
+        left: 50%;
+        width: 80%;
+        transform: translate(-50%, -50%);
+      }
     }
+
   }
 
   &:nth-child(3) {
@@ -148,10 +154,15 @@ section {
       margin: 0;
       padding: 0;
     }
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
   }
 
   &:nth-child(4) {
     h3 {
+      min-width: 320px;
       position: absolute;
       top: 50%;
       left: 50%;
