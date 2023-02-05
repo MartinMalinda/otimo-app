@@ -12,7 +12,7 @@ onMounted(() => {
     } else {
       animate.value = false;
     }
-  }, { threshold: 1 });
+  }, { threshold: 0.8 });
   observer.observe(elementRef.value);
 });
 </script>
