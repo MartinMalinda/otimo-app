@@ -127,8 +127,6 @@ h3 {
 }
 
 section {
-  content-visibility: auto;
-
   height: calc(100vh - env(safe-area-inset-bottom));
   padding: 36px;
   position: relative;
@@ -147,6 +145,10 @@ section {
     h1 {
       margin-bottom: 0;
     }
+  }
+
+  &:not(:first-child) {
+    content-visibility: auto;
   }
 
   &:nth-child(2) {
