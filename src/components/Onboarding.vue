@@ -84,7 +84,7 @@ h1 {
 
 .onboarding-scroll-prompt {
   position: absolute;
-  bottom: 0;
+  bottom: calc(env(safe-area-inset-bottom) + 10px);
   left: calc(50% + 10px);
   transform: translateX(-50%);
   height: 100px;
