@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-const props = defineProps<{ videoSources: string[], maxWidth?: number | string, crop?: boolean }>();
+const props = defineProps<{ videoSources: string[], maxWidth?: number | string, crop?: boolean, duration?: number }>();
 
 const videos = ref(props.videoSources.map((src) => ({
   src,
@@ -67,7 +67,7 @@ onMounted(() => {
 });
 
 const getVideoPath = (path: string) => {
-  const paramsBase = `du_7,ac_none,q_auto:good,vc_h264,`;
+  const paramsBase = `du_${props.duration || '7'},ac_none,q_auto:good,vc_h264,`;
   let params = `${paramsBase}c_${props.crop ? 'crop' : 'scale'},w_${props.maxWidth || 1650}`;
   if (window.innerWidth < 900 && window.innerHeight > window.innerWidth) {
     params = `${paramsBase}c_crop,g_center,h_1200,w_700`;

@@ -24,7 +24,7 @@ onUnmounted(() => {
 <template>
   <div v-if="user" class="onboarding">
     <section>
-      <VideoSlideShow :video-sources="['/wide5.mp4', '/wide5.mp4']" />
+      <VideoSlideShow :duration="12" :video-sources="['/wide5.mp4', '/wide5.mp4']" />
       <h1>
         <Typewriter :text="`Welcome, ${user?.name ? user.name.split(' ')[0] : 'traveller'}`" :interval="100"
           :delay="500" />
