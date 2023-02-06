@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-const props = defineProps<{ videoSources: string[] }>();
+const props = defineProps<{ videoSources: string[], maxWidth?: number | string, crop?: boolean }>();
 
 const videos = ref(props.videoSources.map((src) => ({
   src,
@@ -67,9 +67,10 @@ onMounted(() => {
 });
 
 const getVideoPath = (path: string) => {
-  let params = `c_scale,w_1650`;
+  const paramsBase = `du_7,ac_none,q_auto:good,vc_h264,`;
+  let params = `${paramsBase}c_${props.crop ? 'crop' : 'scale'},w_${props.maxWidth || 1650}`;
   if (window.innerWidth < 900 && window.innerHeight > window.innerWidth) {
-    params = `c_crop,g_center,h_1200,w_700`;
+    params = `${paramsBase}c_crop,g_center,h_1200,w_700`;
   }
 
   return `https://res.cloudinary.com/serenity-themes/video/upload/${params}/v1675517586/otimo${path}`;

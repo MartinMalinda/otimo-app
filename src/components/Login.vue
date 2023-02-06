@@ -97,7 +97,8 @@ onMounted(() => {
   </div>
   <div class="box" :class="{ hide: isHidden }">
     <div class="left">
-      <VideoSlideShow :video-sources="['/vid4.mp4', '/vid2.mp4', '/vid3.mp4', '/vid1.mp4']" />
+      <VideoSlideShow :max-width="'auto'" :crop="true"
+        :video-sources="['/vid4.mp4', '/vid2.mp4', '/vid3.mp4', '/vid1.mp4']" />
       <h1>Ótimo</h1>
       <h2>Your personal guide towards harmony</h2>
     </div>
