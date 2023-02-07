@@ -17,23 +17,18 @@ const getNextVideo = (video: typeof videos.value[0]) => {
   return videos.value[nextIndex] || videos.value[0];
 };
 
-document.addEventListener('scroll', (event) => {
-  console.log(document.scrollingElement?.scrollTop);
-  if (document.scrollingElement?.scrollTop === 0) {
-  }
-});
-
 onMounted(() => {
-  videos.value.forEach((video) => {
+  videos.value.forEach((video, index) => {
 
     // CanPlay functionality
     video.canPlayPromise = new Promise(resolve => {
       video.listeners.canplay = () => {
         video.canPlay = true;
+        console.log('canPlay', video.src);
         resolve(true);
       }
 
-      video.el?.load();
+      video.el!.preload = 'auto';
       video.el?.addEventListener('canplaythrough', video.listeners.canplay);
     });
 
@@ -56,7 +51,7 @@ onMounted(() => {
     video.el?.addEventListener('play', () => {
       video.isPlaying = true;
       const nextVideo = getNextVideo(video);
-      nextVideo.el!.load();
+      nextVideo.el!.preload = 'auto';
       videos.value.filter(_video => _video !== video).forEach(video => {
         video.el?.pause();
         video.isPlaying = false;
@@ -68,6 +63,7 @@ onMounted(() => {
     if (isIntersecting) {
       const firstVid = videos.value[0];
       firstVid.canPlayPromise?.then(() => {
+        console.log('play', firstVid.src);
         firstVid.el?.play();
       })
     } else {
