@@ -32,6 +32,8 @@ onMounted(() => {
         video.canPlay = true;
         resolve(true);
       }
+
+      video.el!.preload = 'auto';
       video.el?.addEventListener('canplaythrough', video.listeners.canplay);
     });
 
