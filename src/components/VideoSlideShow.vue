@@ -32,7 +32,7 @@ onMounted(() => {
         video.canPlay = true;
         resolve(true);
       }
-      video.el?.addEventListener('canplay', video.listeners.canplay);
+      video.el?.addEventListener('canplaythrough', video.listeners.canplay);
     });
 
     if (videos.value.length > 1) {
