@@ -17,6 +17,14 @@ const getNextVideo = (video: typeof videos.value[0]) => {
   return videos.value[nextIndex] || videos.value[0];
 };
 
+const preloadVideo = (video: HTMLMediaElement) => {
+  if (navigator.userAgent.includes('iPhone')) {
+    video.load();
+  } else {
+    video.preload = 'auto';
+  }
+};
+
 onMounted(() => {
   videos.value.forEach((video, index) => {
 
@@ -28,8 +36,6 @@ onMounted(() => {
         resolve(true);
       }
 
-      video.el!.preload = 'auto';
-      video.el?.load();
       video.el?.addEventListener('canplaythrough', video.listeners.canplay);
     });
 
@@ -52,8 +58,7 @@ onMounted(() => {
     video.el?.addEventListener('play', () => {
       video.isPlaying = true;
       const nextVideo = getNextVideo(video);
-      nextVideo.el!.preload = 'auto';
-      nextVideo.el?.load();
+      preloadVideo(nextVideo.el as HTMLMediaElement);
       videos.value.filter(_video => _video !== video).forEach(video => {
         video.el?.pause();
         video.isPlaying = false;
@@ -64,8 +69,8 @@ onMounted(() => {
   const observer = new IntersectionObserver(([{ isIntersecting }]) => {
     if (isIntersecting) {
       const firstVid = videos.value[0];
+      preloadVideo(firstVid.el as HTMLMediaElement);
       firstVid.canPlayPromise?.then(() => {
-        console.log('play', firstVid.src);
         firstVid.el?.play();
       })
     } else {
