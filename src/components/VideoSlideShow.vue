@@ -7,7 +7,9 @@ const videos = ref(props.videoSources.map((src) => ({
   src,
   el: undefined as HTMLMediaElement | undefined,
   canPlay: false,
+  canPlayPromise: null as null | Promise<boolean>,
   isPlaying: false,
+  listeners: {} as Record<string, any>,
 })));
 
 const getNextVideo = (video: typeof videos.value[0]) => {
@@ -23,8 +25,14 @@ document.addEventListener('scroll', (event) => {
 
 onMounted(() => {
   videos.value.forEach((video) => {
-    video.el?.addEventListener('canplay', () => {
-      video.canPlay = true;
+
+    // CanPlay functionality
+    video.canPlayPromise = new Promise(resolve => {
+      video.listeners.canplay = () => {
+        video.canPlay = true;
+        resolve(true);
+      }
+      video.el?.addEventListener('canplay', video.listeners.canplay);
     });
 
     if (videos.value.length > 1) {
@@ -56,7 +64,10 @@ onMounted(() => {
 
   const observer = new IntersectionObserver(([{ isIntersecting }]) => {
     if (isIntersecting) {
-      videos.value[0].el?.play();
+      const firstVid = videos.value[0];
+      firstVid.canPlayPromise?.then(() => {
+        firstVid.el?.play();
+      })
     } else {
       videos.value.forEach((video) => video.el?.pause());
     }
