@@ -19,7 +19,8 @@ const getNextVideo = (video: typeof videos.value[0]) => {
 
 const preloadVideo = (video: HTMLMediaElement) => {
   if (navigator.userAgent.includes('iPhone')) {
-    video.load();
+    // video.load();
+    video.preload = 'auto';
   } else {
     video.preload = 'auto';
   }
