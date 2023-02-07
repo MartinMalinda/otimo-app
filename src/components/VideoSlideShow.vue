@@ -29,6 +29,7 @@ onMounted(() => {
       }
 
       video.el!.preload = 'auto';
+      video.el?.load();
       video.el?.addEventListener('canplaythrough', video.listeners.canplay);
     });
 
@@ -52,6 +53,7 @@ onMounted(() => {
       video.isPlaying = true;
       const nextVideo = getNextVideo(video);
       nextVideo.el!.preload = 'auto';
+      nextVideo.el?.load();
       videos.value.filter(_video => _video !== video).forEach(video => {
         video.el?.pause();
         video.isPlaying = false;
