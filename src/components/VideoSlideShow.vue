@@ -37,7 +37,11 @@ onMounted(() => {
         resolve(true);
       }
 
-      video.el?.addEventListener('canplaythrough', video.listeners.canplay);
+      if (navigator.userAgent.includes('iPhone')) {
+        video.el?.addEventListener('canplay', video.listeners.canplay);
+      } else {
+        video.el?.addEventListener('canplaythrough', video.listeners.canplay);
+      }
     });
 
     if (videos.value.length > 1) {
