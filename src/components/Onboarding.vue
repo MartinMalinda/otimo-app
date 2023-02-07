@@ -72,11 +72,11 @@ onUnmounted(() => {
         <Typewriter text="Ready to get started?" :delay="300" />
       </h2>
       <p>
-        <Typewriter text="Let us know more about you. Share only as much you'd like." :delay="1300" />
+        <Typewriter text="Let us know more about you. Share only as much you'd like." :delay="700" />
       </p>
       <div class="buttons">
         <button>
-          <Typewriter text="Fill the survey" :delay="2000" />
+          <Typewriter text="Fill the survey" :delay="1200" />
         </button>
       </div>
       <footer>
@@ -150,7 +150,7 @@ h3 {
   justify-content: space-between;
   opacity: 0;
   animation: 0.5s fadeIn forwards;
-  animation-delay: 2s;
+  animation-delay: 1s;
 }
 
 section,
@@ -240,7 +240,7 @@ section.cta {
   }
 
   .form-icon {
-    transform: translateX(16px);
+    transform: translateX(8px);
     width: 100px;
     margin-bottom: 16px;
   }
