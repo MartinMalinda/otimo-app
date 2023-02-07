@@ -33,12 +33,11 @@ onMounted(() => {
     video.canPlayPromise = new Promise(resolve => {
       video.listeners.canplay = () => {
         video.canPlay = true;
-        console.log('canPlay', video.src);
         resolve(true);
       }
 
       if (navigator.userAgent.includes('iPhone')) {
-        video.el?.addEventListener('canplay', video.listeners.canplay);
+        video.el?.addEventListener('loadedmetadata', video.listeners.canplay);
       } else {
         video.el?.addEventListener('canplaythrough', video.listeners.canplay);
       }
