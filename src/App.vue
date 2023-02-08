@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSessionStore } from '/~/data/stores/session';
-import { useJourneyStore } from '/~/data/stores/journey';
 import Login from './components/Login.vue';
 import { supabase } from '/~/data/supabase';
 import Onboarding from '/~/components/Onboarding.vue';
 import { useViewportHeight } from '/~/utils/screen';
+import { RouterView } from 'vue-router';
 
 useViewportHeight();
-const sessionStore = useSessionStore();
-const journeyStore = useJourneyStore();
-const journies = ref([]);
 
 const loggedIn = ref();
 
@@ -24,10 +20,8 @@ supabase.auth.getSession().then(({ data }) => {
   <template v-if="loggedIn === undefined" />
   <template v-else-if="loggedIn">
     <!-- <Nav class="nav" /> -->
-    <Onboarding />
-    <div v-for="journey in journies">
-      {{ journey }}
-    </div>
+    <!-- <Onboarding /> -->
+    <RouterView />
   </template>
   <Login v-else />
 </template>

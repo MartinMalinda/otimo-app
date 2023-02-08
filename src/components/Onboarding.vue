@@ -7,11 +7,22 @@ import ScrollPrompt from '/~/components/ScrollPrompt.vue';
 import Form from '/~/components/icons/Form.vue';
 import Square from '/~/components/icons/Square.vue';
 import Responsive from '/~/components/Responsive.vue';
+import { useRouter } from 'vue-router';
+import { timeout } from 'vue-concurrency';
 
 const user = ref();
+const hidden = ref(false);
 supabase.auth.getUser().then(({ data }) => {
   user.value = data.user?.user_metadata;
 });
+
+const router = useRouter();
+
+const transitionToSurvey = async () => {
+  hidden.value = true;
+  await timeout(500);
+  router.push({ name: 'Survey' });
+};
 
 onMounted(() => {
   document.querySelector('html')?.setAttribute('style', 'scroll-snap-type: y mandatory; scroll-snap-stop: always');
@@ -22,7 +33,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div v-if="user" class="onboarding">
+  <div v-if="user" class="onboarding" :class="{ hidden }">
     <section>
       <VideoSlideShow :duration="12" :video-sources="['/wide5.mp4', '/wide5.mp4']" />
       <h1>
@@ -76,7 +87,7 @@ onUnmounted(() => {
         <Typewriter text="Let us know more about you. Share only as much you'd like." :delay="700" />
       </p>
       <div class="buttons">
-        <button>
+        <button @click="transitionToSurvey">
           <Typewriter text="Fill the survey" :delay="1200" />
         </button>
       </div>
@@ -93,6 +104,17 @@ onUnmounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.onboarding {
+  border-radius: 0px;
+  scroll-snap-type: y mandatory;
+  opacity: 1;
+  transition: 0.5s opacity;
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
 h1 {
   font-size: 80px;
   position: relative;
@@ -139,11 +161,6 @@ h3 {
   // background: rgba(0, 0, 0, 0.322);
   display: inline-block;
   padding: 10px;
-}
-
-.onboarding {
-  border-radius: 0px;
-  scroll-snap-type: y mandatory;
 }
 
 .buttons {
