@@ -21,6 +21,7 @@ const router = useRouter();
 const transitionToSurvey = async () => {
   hidden.value = true;
   await timeout(500);
+  document.scrollingElement!.scrollTop = 0;
   router.push({ name: 'Survey' });
 };
 
