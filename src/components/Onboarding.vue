@@ -58,6 +58,7 @@ onUnmounted(() => {
     <section>
       <VideoSlideShow :video-sources="[
         '/wide3.mp4',
+        '/wide3.mp4',
       ]" />
       <h3>
         <Typewriter text="And to be in symbiosis with others and the planet." :interval="100" :delay="500" />
