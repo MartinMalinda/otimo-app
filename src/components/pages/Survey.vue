@@ -1,5 +1,70 @@
 <script setup lang="ts">
+import { reactive, ref } from 'vue';
 import Container from '/~/components/layout/Container.vue';
+
+const survey = reactive({
+  residesAt: null as null | 'megalopolis' | 'city' | 'rural' | 'off-grid',
+  climate: null as null | 'topical' | 'moderate' | 'sub-arctic' | 'arctic',
+  housing: null as null | 'flat-sharing' | 'flat-renting' | 'flat-owner' | 'house-renting' | 'house-owner',
+  modesOfTransport: [] as ('bicycle' | 'motorbike' | 'car' | 'van')[]
+});
+
+// type Single = <X extends string, Y extends string>(options: { header: Y, options: Record<string, X> }) => { header: Y, options: X[], value: X | null };
+// const createSingle : Single = (options) => ({
+//   header: options.header,
+//   options: Object.values(options.options),
+//   value: null
+// });
+
+// const first = createSingle({
+//     header: 'Where do you currently reside?',
+// value: null as null | string,
+//     options: ['Megalopolis', 'City', 'Rural area', 'Off the grid']
+//   });
+
+const sections = ref([
+  {
+    header: 'Where do you currently reside?',
+    value: null as null | string,
+    options: [
+      { label: 'Megalopolis', emoji: '🏙' },
+      { label: 'City', emoji: '🌆' },
+      { label: 'Rural area', emoji: '🏘' },
+      { label: 'Off the grid', emoji: '🏜' }
+    ],
+  }, {
+    header: 'What is the climate within your area?',
+    value: null as null | string,
+    options: [
+      { label: 'Tropical', emoji: '🌴' },
+      { label: 'Temperate', emoji: '☀️' },
+      { label: 'Moderate', emoji: '⛅' },
+      { label: 'Sub arctic', emoji: '🌨' },
+      { label: 'Arcit', emoji: '❄️' },
+    ]
+  }, {
+    header: 'Your housing situation',
+    value: null as null | string,
+    options: [
+      { emoji: '👥', label: 'Flatsharing' },
+      { emoji: '🏨', label: 'Flat renting' },
+      { emoji: '🏢', label: 'Flat owner' },
+      { emoji: '🏠', label: 'House renting' },
+      { emoji: '🏡', label: 'House owner' },
+    ]
+  },
+  {
+    header: 'Which of these do you own? (or have reliably available)',
+    value: null as null | string,
+    options: [
+      { emoji: '🚲', label: 'Bicycle' },
+      { emoji: '🛵', label: 'Motorbike / scooter' },
+      { emoji: '🚘', label: 'Car' },
+      { emoji: '🚚', label: 'Van' },
+    ]
+  }
+]);
+
 
 </script>
 <template>
@@ -9,77 +74,13 @@ import Container from '/~/components/layout/Container.vue';
       <p>Share only as much you'd like, all of the questions are optional.<br />We can use these to customize your Otimo
         experience.</p>
     </header>
-    <section>
-      <h2>Where do you currently reside?</h2>
+    <section v-for="section in sections">
+      <h2>{{ section.header }}</h2>
       <div class="options">
-        <button class="survey-button">
-          <span class="emoji">🏙</span> Megalopolis
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🌆</div> City
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏘</div> Rural area
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏜</div> Off the grid
-        </button>
-      </div>
-    </section>
-    <section>
-      <h2>What is the climate within your area?</h2>
-      <div class="options">
-        <button class="survey-button">
-          <span class="emoji">🌴</span> Tropical
-        </button>
-        <button class="survey-button">
-          <div class="emoji">☀️</div> Temperate
-        </button>
-        <button class="survey-button">
-          <div class="emoji">⛅</div> Moderate
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🌨</div> Sub arctic
-        </button>
-        <button class="survey-button">
-          <div class="emoji">❄️</div> Arctic
-        </button>
-      </div>
-    </section>
-    <section>
-      <h2>Your housing situation</h2>
-      <div class="options">
-        <button class="survey-button">
-          <div class="emoji">👥</div> Flatsharing
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏨</div> Flat renting
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏢</div> Flat owner
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏠</div> House renting
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🏡</div> House owner
-        </button>
-      </div>
-    </section>
-    <section>
-      <h2>Which of these do you own? (or have reliably available)</h2>
-      <div class="options">
-        <button class="survey-button">
-          <div class="emoji">🚲</div> Bicycle
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🛵</div> Motorbike / scooter
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🚘</div> Car
-        </button>
-        <button class="survey-button">
-          <div class="emoji">🚚</div> Van
+        <button v-for="option in section.options" @click="() => section.value = option.label" class="survey-button"
+          :class="{ selected: option.label === section.value }">
+          <div class="emoji">{{ option.emoji }}</div>
+          {{ option.label }}
         </button>
       </div>
     </section>
@@ -142,6 +143,12 @@ import Container from '/~/components/layout/Container.vue';
     width: 120px;
     background: white;
     color: black;
+    transition: 0.3s background, 0.3s color;
+
+    &.selected {
+      background: var(--green);
+      color: white;
+    }
 
     .emoji {
       font-size: 50px;
