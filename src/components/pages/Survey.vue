@@ -2,26 +2,6 @@
 import { reactive, ref } from 'vue';
 import Container from '/~/components/layout/Container.vue';
 
-const survey = reactive({
-  residesAt: null as null | 'megalopolis' | 'city' | 'rural' | 'off-grid',
-  climate: null as null | 'topical' | 'moderate' | 'sub-arctic' | 'arctic',
-  housing: null as null | 'flat-sharing' | 'flat-renting' | 'flat-owner' | 'house-renting' | 'house-owner',
-  modesOfTransport: [] as ('bicycle' | 'motorbike' | 'car' | 'van')[]
-});
-
-// type Single = <X extends string, Y extends string>(options: { header: Y, options: Record<string, X> }) => { header: Y, options: X[], value: X | null };
-// const createSingle : Single = (options) => ({
-//   header: options.header,
-//   options: Object.values(options.options),
-//   value: null
-// });
-
-// const first = createSingle({
-//     header: 'Where do you currently reside?',
-// value: null as null | string,
-//     options: ['Megalopolis', 'City', 'Rural area', 'Off the grid']
-//   });
-
 const sections = ref([
   {
     header: 'Where do you currently reside?',
