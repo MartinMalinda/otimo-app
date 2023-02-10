@@ -48,33 +48,36 @@ const sections = ref([
 
 </script>
 <template>
-  <Container class="survey">
-    <header>
-      <h1>We're curious to know more</h1>
-      <p>Share only as much you'd like, all of the questions are optional.<br />We can use these to customize your Otimo
-        experience.</p>
-    </header>
-    <section v-for="section in sections">
-      <h2>{{ section.header }}</h2>
-      <div class="options">
-        <button v-for="option in section.options" @click="() => {
-          if (section.value && typeof section.value === 'object') {
-            if (section.value?.includes(option.label)) {
-              section.value = section.value.filter(selectedOption => selectedOption !== option.label);
+  <div class="master-background">
+    <Container class="survey">
+      <header>
+        <h1>We're curious to know more</h1>
+        <p>Share only as much you'd like, all of the questions are optional.<br />We can use these to customize your
+          Otimo
+          experience.</p>
+      </header>
+      <section v-for="section in sections">
+        <h2>{{ section.header }}</h2>
+        <div class="options">
+          <button v-for="option in section.options" @click="() => {
+            if (section.value && typeof section.value === 'object') {
+              if (section.value?.includes(option.label)) {
+                section.value = section.value.filter(selectedOption => selectedOption !== option.label);
+              } else {
+                section.value = [...section.value as string[], option.label];
+              }
             } else {
-              section.value = [...section.value as string[], option.label];
+              section.value = option.label;
             }
-          } else {
-            section.value = option.label;
-          }
-        }" class="survey-button"
-          :class="{ selected: typeof section.value === 'string' ? option.label === section.value : section.value?.includes(option.label) }">
-          <div class="emoji">{{ option.emoji }}</div>
-          {{ option.label }}
-        </button>
-      </div>
-    </section>
-  </Container>
+          }" class="survey-button"
+            :class="{ selected: typeof section.value === 'string' ? option.label === section.value : section.value?.includes(option.label) }">
+            <div class="emoji">{{ option.emoji }}</div>
+            {{ option.label }}
+          </button>
+        </div>
+      </section>
+    </Container>
+  </div>
 </template>
 <style lang="scss" scoped>
 @keyframes clear {
@@ -87,7 +90,14 @@ const sections = ref([
   }
 }
 
+.master-background {
+  background: var(--green);
+  padding: 10px;
+}
+
 .survey {
+  background: #285430;
+  color: #E5D9B6;
   margin: 60px auto !important;
   padding: 0;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
@@ -131,7 +141,7 @@ const sections = ref([
     flex-direction: column;
     height: 120px;
     width: 120px;
-    background: white;
+    background: rgb(112, 140, 101);
     color: black;
     transition: 0.3s background, 0.3s color;
 
