@@ -35,7 +35,7 @@ const sections = ref([
   },
   {
     header: 'Which of these do you own? (or have reliably available)',
-    value: null as null | string,
+    value: [] as string[],
     options: [
       { emoji: '🚲', label: 'Bicycle' },
       { emoji: '🛵', label: 'Motorbike / scooter' },
@@ -57,8 +57,18 @@ const sections = ref([
     <section v-for="section in sections">
       <h2>{{ section.header }}</h2>
       <div class="options">
-        <button v-for="option in section.options" @click="() => section.value = option.label" class="survey-button"
-          :class="{ selected: option.label === section.value }">
+        <button v-for="option in section.options" @click="() => {
+          if (section.value && typeof section.value === 'object') {
+            if (section.value?.includes(option.label)) {
+              section.value = section.value.filter(selectedOption => selectedOption !== option.label);
+            } else {
+              section.value = [...section.value as string[], option.label];
+            }
+          } else {
+            section.value = option.label;
+          }
+        }" class="survey-button"
+          :class="{ selected: typeof section.value === 'string' ? option.label === section.value : section.value?.includes(option.label) }">
           <div class="emoji">{{ option.emoji }}</div>
           {{ option.label }}
         </button>
