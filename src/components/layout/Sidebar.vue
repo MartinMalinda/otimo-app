@@ -21,8 +21,12 @@ supabase.auth.getUser().then(({ data }) => {
         <img class="profile-pic" referrerpolicy="no-referrer" :src="user.avatar_url" />
         {{ user.full_name }}
       </div>
+      <a href="mailto:help@otimo.us" class="row">
+        <span class="icon">✉️</span>
+        Contact us
+      </a>
       <RouterLink :to="{ name: 'Signout' }" class="row">
-        <span class="icon">🚪</span>
+        <span class="icon">💤</span>
         Sign out
       </RouterLink>
     </div>
