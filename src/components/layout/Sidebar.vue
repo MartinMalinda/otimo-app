@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import Hamburger from '/~/components/icons/Hamburger.vue';
 import Close from '/~/components/icons/Close.vue';
 import Logo from '/~/components/Logo.vue';
 import { supabase } from '/~/data/supabase';
 
+const router = useRouter();
 const user = ref();
 const isMobileSidebarOpen = ref(false);
 supabase.auth.getUser().then(({ data }) => {
   user.value = data.user?.user_metadata;
 });
+
+router.beforeEach(() => {
+  isMobileSidebarOpen.value = false;
+});
+
 
 </script>
 <template>
