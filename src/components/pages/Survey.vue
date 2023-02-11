@@ -10,7 +10,7 @@ const surveyStore = useSurveyStore();
   <div class="master-background">
     <Container class="survey">
       <header>
-        <h1>We're curious to know more</h1>
+        <h2>📜 Survey</h2>
         <p>Share only as much you'd like, all of the questions are optional.<br />We can use these to customize your
           Otimo
           experience.</p>
@@ -37,8 +37,8 @@ const surveyStore = useSurveyStore();
     padding: 32px 32px 0 32px;
   }
 
-  h1 {
-    font-size: 3rem;
+  h2 {
+    font-size: 2rem;
     line-height: 1em;
   }
 
