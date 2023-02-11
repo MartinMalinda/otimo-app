@@ -61,7 +61,7 @@ section {
   width: 120px;
   background: rgb(112, 140, 101);
   color: black;
-  transition: 0.3s background, 0.3s color, 0.3s border;
+  transition: 0.3s background, 0.3s color, 0.3s border, 0.3s width, 0.3s height, 0.3s margin;
   flex-shrink: 0;
   position: relative;
   border: 5px solid transparent;
@@ -69,6 +69,14 @@ section {
   &.selected {
     background: var(--green);
     color: white;
+    width: 125px;
+    height: 125px;
+    margin-top: -2.5px;
+    // transform: translateY(-2.5px);
+  }
+
+  &:active {
+    transform: scale(0.98, 0.98);
   }
 
   &.checked {
@@ -96,5 +104,8 @@ section {
   display: flex;
   gap: 8px;
   overflow-x: auto;
+  overflow-y: hidden;
+  padding: 12px 0;
+  height: 140px;
 }
 </style>
