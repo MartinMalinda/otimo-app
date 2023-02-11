@@ -75,6 +75,7 @@ const surveyStore = useSurveyStore();
     padding: $space;
     background: green;
     border-radius: 3px;
+    text-align: right;
   }
 }
 </style>
