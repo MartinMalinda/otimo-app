@@ -48,7 +48,7 @@ section {
   animation-delay: 1s;
 
   &:nth-child(even) {
-    background: rgba(211, 211, 211, 0.18);
+    background: rgba(211, 211, 211, 0.05);
   }
 }
 
@@ -59,7 +59,8 @@ section {
   flex-direction: column;
   height: 120px;
   width: 120px;
-  background: rgb(112, 140, 101);
+  // background: lighten(#244234, 50%);
+  background: transparentize(#dfe4e2, 0.7);
   color: black;
   transition: 0.3s background, 0.3s color, 0.3s border, 0.3s width, 0.3s height, 0.3s margin;
   flex-shrink: 0;

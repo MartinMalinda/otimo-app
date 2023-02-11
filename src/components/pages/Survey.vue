@@ -21,13 +21,13 @@ const surveyStore = useSurveyStore();
 </template>
 <style lang="scss" scoped>
 .master-background {
-  background: var(--green);
+  background: #5b6861;
   padding: 10px;
 }
 
 .survey {
-  background: #285430;
-  color: #E5D9B6;
+  background: #244234;
+  color: #dfe4e2;
   margin: 60px auto !important;
   padding: 0;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
