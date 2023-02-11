@@ -1,17 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import Hamburger from '/~/components/icons/Hamburger.vue';
+import Close from '/~/components/icons/Close.vue';
 import Logo from '/~/components/Logo.vue';
 import { supabase } from '/~/data/supabase';
 
 const user = ref();
+const isMobileSidebarOpen = ref(false);
 supabase.auth.getUser().then(({ data }) => {
   user.value = data.user?.user_metadata;
 });
 
 </script>
 <template>
-  <aside>
+  <nav class="mobile-topbar">
+    <button @click="() => isMobileSidebarOpen = true">
+      <Hamburger class="hamburger" />
+    </button>
+    <Logo :width="35" :should-animate="true" :after-animation="() => { }" :before-animation="() => { }" />
+  </nav>
+  <aside :class="{ 'is-mobile-open': isMobileSidebarOpen }">
+    <button @click="() => isMobileSidebarOpen = false" class="mobile-close-button">
+      <Close />
+    </button>
     <div class="otimo">
       <Logo :width="100" :should-animate="true" :after-animation="() => { }" :before-animation="() => { }" />
       <h1>Otimo</h1>
@@ -48,6 +60,83 @@ supabase.auth.getUser().then(({ data }) => {
 </template>
 
 <style lang="scss" scoped>
+.mobile-topbar {
+  position: fixed;
+  top: 0;
+  background: $dark-green;
+  width: 100%;
+  align-items: center;
+  padding: $space $space * 1.5;
+  z-index: 100;
+
+  // TODO: handle this via JS instead to save rendering work
+  display: none;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: flex;
+  }
+
+
+  button {
+    background: 0;
+    border: 0;
+  }
+
+  .hamburger {
+    width: 35px;
+    height: 35px;
+    transform: translateY(1px);
+
+    :deep(path) {
+      fill: $whity;
+    }
+  }
+}
+
+aside {
+  position: fixed;
+  width: $sidebar-width;
+  background: $dark-green;
+  height: 100vh;
+  border-right: 2px solid darken($dark-green, 1%);
+  color: $whity;
+  z-index: 101;
+  transform: none;
+  transition: 0.3s transform;
+
+  .mobile-close-button {
+    display: none;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    // TODO: hide it via JS instead to save rendering work
+    transform: translateX(-100%);
+    width: 100%;
+
+    .mobile-close-button {
+      display: block;
+      position: absolute;
+      right: $space;
+      top: $space;
+      border: 0;
+      background: none;
+
+      :deep(svg) {
+        width: 30px;
+        height: 30px;
+      }
+
+      :deep(path) {
+        stroke: darken($whity, 10%);
+      }
+    }
+
+    &.is-mobile-open {
+      transform: none;
+    }
+  }
+}
+
 .otimo {
   padding: $space * 2;
   display: flex;
@@ -59,15 +148,6 @@ supabase.auth.getUser().then(({ data }) => {
   h1 {
     margin-bottom: 0;
   }
-}
-
-aside {
-  position: fixed;
-  width: $sidebar-width;
-  background: $dark-green;
-  height: 100vh;
-  border-right: 2px solid darken($dark-green, 1%);
-  color: $whity;
 }
 
 .user {

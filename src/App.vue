@@ -36,5 +36,9 @@ supabase.auth.getSession().then(({ data }) => {
 
 .content {
   margin-left: $sidebar-width;
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 0;
+  }
 }
 </style>
