@@ -16,7 +16,7 @@ defineProps<{ question: SurveyQuestion }>();
             question.value = [...question.value as string[], option.label];
           }
         } else {
-          question.value = option.label;
+          question.value = question.value === option.label ? null : option.label;
         }
       }" class="survey-button" :class="{
   selected: typeof question.value === 'string' && option.label === question.value,
