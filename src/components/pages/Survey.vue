@@ -65,7 +65,7 @@ const surveyStore = useSurveyStore();
   align-items: center;
 
   button {
-    margin-left: $space;
+    margin-left: $space * 2;
     padding-left: $space * 4;
     padding-right: $space * 4;
   }

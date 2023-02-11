@@ -66,14 +66,13 @@ section {
   flex-shrink: 0;
   position: relative;
   border: 5px solid transparent;
+  transform-origin: 50% 50%;
 
   &.selected {
     background: var(--green);
     color: white;
-    width: 125px;
-    height: 125px;
     margin-top: -2.5px;
-    // transform: translateY(-2.5px);
+    transform: scale(1.05, 1.05);
   }
 
   &:active {
@@ -104,7 +103,7 @@ section {
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: $space * 2;
   padding: 12px 0;
 }
 </style>
