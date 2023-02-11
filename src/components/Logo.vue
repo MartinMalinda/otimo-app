@@ -9,15 +9,15 @@ const canvasRef = ref();
 const props = defineProps<{
   width: number,
   shouldAnimate: boolean,
-  beforeAnimation: () => void,
-  afterAnimation: () => void,
+  beforeAnimation?: () => void,
+  afterAnimation?: () => void,
 }>();
 
 const animate = () => {
   riv.play();
   riv.on(rive.EventType.Stop, async () => {
     await timeout(300);
-    props.afterAnimation();
+    props.afterAnimation?.();
   });
 };
 
@@ -36,7 +36,7 @@ onMounted(() => {
 watch(() => props.shouldAnimate, async () => {
   await nextTick();
   if (props.shouldAnimate) {
-    props.beforeAnimation();
+    props.beforeAnimation?.();
     animate();
   } else {
     reset();
