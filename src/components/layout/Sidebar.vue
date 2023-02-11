@@ -74,6 +74,7 @@ aside {
   width: $sidebar-width;
 
   .row {
+    margin-top: $space;
     display: flex;
     gap: $space;
     align-items: center;

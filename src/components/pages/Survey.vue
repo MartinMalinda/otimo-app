@@ -16,6 +16,9 @@ const surveyStore = useSurveyStore();
           experience.</p>
       </header>
       <SurveySection v-for="question in surveyStore.questions" :question="question" :key="question.header" />
+      <section class="save-section">
+        <button>Save</button>
+      </section>
     </Container>
   </div>
 </template>
@@ -46,6 +49,20 @@ const surveyStore = useSurveyStore();
     display: block;
     margin-top: 32px;
     margin-bottom: 32px;
+  }
+}
+
+.save-section {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: $space $space * 2;
+  background: $dark-green;
+  border-top: 1px solid darken($dark-green, 2%);
+
+  button {
+    width: 100%;
+    padding: $space * 2;
   }
 }
 </style>
