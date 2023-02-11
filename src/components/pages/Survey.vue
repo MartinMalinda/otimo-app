@@ -1,50 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
 import Container from '/~/components/layout/Container.vue';
+import SurveySection from '/~/components/survey/SurveySection.vue';
+import { useSurveyStore } from '/~/data/stores/survey';
 
-const sections = ref([
-  {
-    header: 'Where do you currently reside?',
-    value: null as null | string,
-    options: [
-      { label: 'Megalopolis', emoji: '🏙' },
-      { label: 'City', emoji: '🌆' },
-      { label: 'Rural area', emoji: '🏘' },
-      { label: 'Off the grid', emoji: '🏜' }
-    ],
-  }, {
-    header: 'What is the climate within your area?',
-    value: null as null | string,
-    options: [
-      { label: 'Tropical', emoji: '🌴' },
-      { label: 'Temperate', emoji: '☀️' },
-      { label: 'Moderate', emoji: '⛅' },
-      { label: 'Sub arctic', emoji: '🌨' },
-      { label: 'Arcit', emoji: '❄️' },
-    ]
-  }, {
-    header: 'Your housing situation',
-    value: null as null | string,
-    options: [
-      { emoji: '👥', label: 'Flatsharing' },
-      { emoji: '🏨', label: 'Flat renting' },
-      { emoji: '🏢', label: 'Flat owner' },
-      { emoji: '🏠', label: 'House renting' },
-      { emoji: '🏡', label: 'House owner' },
-    ]
-  },
-  {
-    header: 'Which of these do you own? (or have reliably available)',
-    value: [] as string[],
-    options: [
-      { emoji: '🚲', label: 'Bicycle' },
-      { emoji: '🛵', label: 'Motorbike / scooter' },
-      { emoji: '🚘', label: 'Car' },
-      { emoji: '🚚', label: 'Van' },
-    ]
-  }
-]);
-
+const surveyStore = useSurveyStore();
 
 </script>
 <template>
@@ -56,40 +15,11 @@ const sections = ref([
           Otimo
           experience.</p>
       </header>
-      <section v-for="section in sections">
-        <h2>{{ section.header }}</h2>
-        <div class="options">
-          <button v-for="option in section.options" @click="() => {
-            if (section.value && typeof section.value === 'object') {
-              if (section.value?.includes(option.label)) {
-                section.value = section.value.filter(selectedOption => selectedOption !== option.label);
-              } else {
-                section.value = [...section.value as string[], option.label];
-              }
-            } else {
-              section.value = option.label;
-            }
-          }" class="survey-button"
-            :class="{ selected: typeof section.value === 'string' ? option.label === section.value : section.value?.includes(option.label) }">
-            <div class="emoji">{{ option.emoji }}</div>
-            {{ option.label }}
-          </button>
-        </div>
-      </section>
+      <SurveySection v-for="question in surveyStore.questions" :question="question" :key="question.header" />
     </Container>
   </div>
 </template>
 <style lang="scss" scoped>
-@keyframes clear {
-  0% {
-    filter: blur(5px)
-  }
-
-  100% {
-    filter: blur(0px)
-  }
-}
-
 .master-background {
   background: var(--green);
   padding: 10px;
@@ -115,44 +45,6 @@ const sections = ref([
     display: block;
     margin-top: 32px;
     margin-bottom: 32px;
-  }
-
-  .options {
-    display: flex;
-    gap: 8px;
-  }
-
-  section {
-    margin-top: 32px;
-    padding: 32px;
-    filter: blur(5px);
-    animation: 0.5s clear forwards;
-    animation-delay: 1s;
-
-    &:nth-child(even) {
-      background: rgba(211, 211, 211, 0.18);
-    }
-  }
-
-  .survey-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 120px;
-    width: 120px;
-    background: rgb(112, 140, 101);
-    color: black;
-    transition: 0.3s background, 0.3s color;
-
-    &.selected {
-      background: var(--green);
-      color: white;
-    }
-
-    .emoji {
-      font-size: 50px;
-    }
   }
 }
 </style>
