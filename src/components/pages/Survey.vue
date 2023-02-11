@@ -31,6 +31,7 @@ const surveyStore = useSurveyStore();
   margin: 60px auto !important;
   padding: 0;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 
   header {
     padding: 32px 32px 0 32px;

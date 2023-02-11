@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import Login from './components/Login.vue';
 import { supabase } from '/~/data/supabase';
-import Onboarding from '/~/components/Onboarding.vue';
 import { useViewportHeight } from '/~/utils/screen';
 import { RouterView } from 'vue-router';
+import Sidebar from '/~/components/layout/Sidebar.vue';
 
 useViewportHeight();
 
@@ -21,13 +21,20 @@ supabase.auth.getSession().then(({ data }) => {
   <template v-else-if="loggedIn">
     <!-- <Nav class="nav" /> -->
     <!-- <Onboarding /> -->
-    <RouterView />
+    <Sidebar />
+    <div class="content">
+      <RouterView />
+    </div>
   </template>
   <Login v-else />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .nav {
   margin-top: 16px;
+}
+
+.content {
+  margin-left: $sidebar-width;
 }
 </style>

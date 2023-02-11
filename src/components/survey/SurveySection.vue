@@ -43,9 +43,9 @@ defineProps<{ question: SurveyQuestion }>();
 section {
   margin-top: 32px;
   padding: 32px;
-  filter: blur(5px);
-  animation: 0.5s clear forwards;
-  animation-delay: 1s;
+  // filter: blur(5px);
+  // animation: 0.5s clear forwards;
+  // animation-delay: 1s;
 
   &:nth-child(even) {
     background: rgba(211, 211, 211, 0.05);

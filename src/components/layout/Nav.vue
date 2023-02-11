@@ -17,7 +17,7 @@ const logout = async () => {
   <nav>
     <Container class="inner">
       <div class="left">
-        <button @click="logout"><img :src="user?.avatar_url" /> </button>
+        <button @click="logout"><button @click="logout"><img :src="user?.avatar_url" /> </button></button>
         <div class="links">
           <a>Profile</a>
           <a>Journey</a>
