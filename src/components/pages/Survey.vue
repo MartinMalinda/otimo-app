@@ -17,6 +17,7 @@ const surveyStore = useSurveyStore();
       </header>
       <SurveySection v-for="question in surveyStore.questions" :question="question" :key="question.header" />
       <section class="save-section">
+        <div :style="`width: ${surveyStore.progress}%`" class="progress">{{ surveyStore.progress }}%</div>
         <button>Save</button>
       </section>
     </Container>
@@ -59,10 +60,21 @@ const surveyStore = useSurveyStore();
   padding: $space $space * 2;
   background: $dark-green;
   border-top: 1px solid darken($dark-green, 2%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   button {
-    width: 100%;
-    padding: $space * 2;
+    margin-left: $space;
+    padding-left: $space * 4;
+    padding-right: $space * 4;
+  }
+
+  .progress {
+    transition: 0.3s width;
+    padding: $space;
+    background: green;
+    border-radius: 3px;
   }
 }
 </style>

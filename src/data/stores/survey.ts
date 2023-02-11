@@ -46,7 +46,13 @@ export const useSurveyStore = defineStore({
       }
     ]
   }),
-
+  getters: {
+    progress(state) {
+      const answeredQuestions = state.questions.filter(q => !!q.value && q.value.length !== 0).length;
+      const totalQuestions = state.questions.length;
+      return Math.round(answeredQuestions / totalQuestions * 100);
+    }
+  },
   actions: {
   }
 });
