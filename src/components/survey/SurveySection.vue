@@ -102,10 +102,8 @@ section {
 
 .options {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  overflow-x: auto;
-  overflow-y: hidden;
   padding: 12px 0;
-  height: 140px;
 }
 </style>
