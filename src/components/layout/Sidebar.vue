@@ -103,7 +103,7 @@ aside {
   position: fixed;
   width: $sidebar-width;
   background: $dark-green;
-  height: 100vh;
+  height: calc(var(--vh) * 100);
   border-right: 2px solid darken($dark-green, 1%);
   color: $whity;
   z-index: 101;

@@ -174,7 +174,7 @@ h3 {
 
 section,
 .cta {
-  height: calc(100vh - env(safe-area-inset-bottom));
+  height: calc(var(--vh) * 100);
   padding: 36px;
   position: relative;
   scroll-snap-align: start;
